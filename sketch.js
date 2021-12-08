@@ -82,9 +82,10 @@ function draw() {
   }
     
   // pular quando a tecla espaço é acionada
-  if(keyDown("space")&& trex.y >= 160) {
+  if(touches.length > 0 || keyDown("space")&& trex.y >= 160) {
     trex.velocityY = -10;
-    somsalto.play();
+    somsalto.play(); 
+    touches = [];
   }
   gameover.visible = false;
   restart.visible = false;
@@ -106,11 +107,12 @@ function draw() {
     grupocactos.setLifetimeEach(-1);
     gameover.visible = true;
     restart.visible = true;
-    if(mousePressedOver(restart)){
+    if(touches.length > 0 || mousePressedOver(restart)){
       pontuacao = 0;
       grupocactos.destroyEach();
       gruponuvens.destroyEach();
       trex.changeAnimation("running",trex_correndo);
+      touches = [];
       estadojogo = 0;
     }
       
